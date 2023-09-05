@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  margin-bottom: 20px;
+  padding: 0 20px;
+  .left,
+  .right {
+    flex: 1;
+  }
+  .right {
+    text-align: end;
+  }
+}
+
+.content {
+  font-size: 24px;
+  background: #f1f2f5;
+  padding: 20px 40px;
+}
+
+.footer {
+  font-size: 32px;
+  text-align: center;
+}

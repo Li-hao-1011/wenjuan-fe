@@ -1,15 +1,9 @@
 import { FC } from 'react'
-import List from './pages/List'
+import { RouterProvider } from 'react-router-dom'
+import { router as routerConfig } from './router/index'
 
 const App: FC = () => {
-  return (
-    <>
-      <div>
-        <h1>wenjuanxing FE</h1>
-        <List />
-      </div>
-    </>
-  )
+  return <RouterProvider router={routerConfig}></RouterProvider>
 }
 
 export default App

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import styles from './List.module.scss'
-import QuestionCard from '../components/QuestionCard'
+import QuestionCard from '../../components/QuestionCard'
 
 const data = [
   { _id: 'q1', title: '问卷一', isPublished: false, isStart: false, answerCount: 5, createdAt: '2023-07-09' },

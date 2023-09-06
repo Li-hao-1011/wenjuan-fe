@@ -1,4 +1,5 @@
 import { FC, useState } from 'react'
+import { useTitle } from '@reactuses/core'
 import styles from './List.module.scss'
 import QuestionCard from '../../components/QuestionCard'
 
@@ -10,8 +11,8 @@ const data = [
 ]
 
 const List: FC = () => {
+  useTitle('小幕问卷 - 我的问卷')
   const [questions, setQuestions] = useState(data)
-
   return (
     <>
       <div className={styles.header}>

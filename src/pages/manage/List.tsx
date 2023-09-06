@@ -1,8 +1,9 @@
 import { FC, useState } from 'react'
 import { useTitle } from '@reactuses/core'
-import styles from './List.module.scss'
+import { Typography } from 'antd'
+import styles from './Common.module.scss'
 import QuestionCard from '../../components/QuestionCard'
-
+const { Title } = Typography
 const data = [
   { _id: 'q1', title: '问卷一', isPublished: false, isStart: false, answerCount: 5, createdAt: '2023-07-09' },
   { _id: 'q2', title: '问卷二', isPublished: false, isStart: false, answerCount: 5, createdAt: '2023-07-09' },
@@ -17,7 +18,7 @@ const List: FC = () => {
     <>
       <div className={styles.header}>
         <div className={styles.left}>
-          <h3>我的问卷</h3>
+          <Title level={3}>我的问卷</Title>
         </div>
         <div className={styles.right}>搜索 🔍</div>
       </div>
@@ -26,7 +27,7 @@ const List: FC = () => {
           return <QuestionCard key={it._id} {...it} />
         })}
       </div>
-      <div className={styles.footer}>Footer</div>
+      <div className={styles.footer}>上滑加载更多...</div>
     </>
   )
 }

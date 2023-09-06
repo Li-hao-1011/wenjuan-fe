@@ -1,7 +1,7 @@
 .header {
+  padding: 0 24px;
   display: flex;
-  margin-bottom: 20px;
-  padding: 0 20px;
+  // background-color: #7dbcea;
   .left,
   .right {
     flex: 1;
@@ -11,13 +11,13 @@
   }
 }
 
-.content {
-  font-size: 24px;
+.main {
+  min-height: calc(100vh - 64px - 65.5px);
   background: #f1f2f5;
-  padding: 20px 40px;
 }
 
 .footer {
-  font-size: 32px;
   text-align: center;
+  background-color: #eee;
+  border-top: 1px solid #e8e8e8;
 }

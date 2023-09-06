@@ -11,7 +11,9 @@
     "format": "prettier --write 'src/**/*.+(js|ts|jsx|tsx)'"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.2.6",
     "@reactuses/core": "^4.0.7",
+    "antd": "^5.8.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",

@@ -4,6 +4,8 @@ import { Typography, Empty } from 'antd'
 import styles from './Common.module.scss'
 import QuestionCard from '../../components/QuestionCard'
 import { PropsType } from '../../components/QuestionCard'
+import ListSearch from '../../components/ListSearch'
+
 const { Title } = Typography
 
 const sourceData: PropsType[] = [
@@ -22,7 +24,9 @@ const Star: FC = () => {
         <div className={styles.left}>
           <Title level={3}>星标问卷</Title>
         </div>
-        <div className={styles.right}>搜索 🔍</div>
+        <div className={styles.right}>
+          <ListSearch />
+        </div>
       </div>
       <div className={styles.content}>
         {data.length <= 0 ? (

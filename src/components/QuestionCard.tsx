@@ -15,13 +15,13 @@ export type PropsType = {
   _id: string
   title: string
   isPublished: boolean
-  isStart: boolean
+  isStar: boolean
   answerCount: number
   createdAt: string
 }
 
 const QuestionCard: FC<PropsType> = (props) => {
-  const { _id, title, isPublished, answerCount, createdAt, isStart } = props
+  const { _id, title, isPublished, answerCount, createdAt, isStar } = props
   const nav = useNavigate()
   const { confirm } = Modal
 
@@ -45,7 +45,7 @@ const QuestionCard: FC<PropsType> = (props) => {
           <div className={styles.left}>
             <Link to={isPublished ? `/question/stat/${_id}` : `/question/edit/${_id}`}>
               <Space>
-                {isPublished && <StarOutlined style={{ color: 'red' }} />}
+                {isStar && <StarOutlined style={{ color: 'red' }} />}
                 {title}
               </Space>
             </Link>
@@ -78,7 +78,7 @@ const QuestionCard: FC<PropsType> = (props) => {
           <div className={styles.right}>
             <Space>
               <Button icon={<StarOutlined />} size="small">
-                {isStart ? '标星' : '取消标星'}
+                {!isStar ? '标星' : '取消标星'}
               </Button>
               <Popconfirm
                 title="Copy that link?"

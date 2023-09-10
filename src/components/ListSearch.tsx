@@ -11,7 +11,6 @@ const ListSearch: FC = () => {
   const [searchParams] = useSearchParams()
   useEffect(() => {
     // 地址栏发生变化就执行
-    console.log('searchParams', `SEARCH_LIST_PARAM_KEY ==> ${searchParams.get(SEARCH_LIST_PARAM_KEY)}`)
     const keyword = searchParams.get(SEARCH_LIST_PARAM_KEY) || ''
     setSearchText(keyword)
   }, [searchParams])

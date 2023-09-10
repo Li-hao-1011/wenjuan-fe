@@ -1,19 +1,15 @@
 import { FC, useState } from 'react'
 import { useTitle } from '@reactuses/core'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { Typography, Empty, Table, Tag, Space, Button, Modal, message } from 'antd'
+import { Typography, Empty, Table, Tag, Space, Button, Modal, Spin, message } from 'antd'
 import styles from './Common.module.scss'
 import { PropsType } from '../../components/QuestionCard'
 import ListSearch from '../../components/ListSearch'
+import useLoadQuestionList from '../../hooks/useLoadQuestionList'
 
 const { Title } = Typography
 const { confirm } = Modal
 
-const sourceData: PropsType[] = [
-  { _id: 'q1', title: '问卷一', isPublished: false, isStart: true, answerCount: 5, createdAt: '2023-07-09' },
-  { _id: 'q2', title: '问卷二', isPublished: true, isStart: true, answerCount: 5, createdAt: '2023-07-09' },
-  { _id: 'q3', title: '问卷三', isPublished: true, isStart: true, answerCount: 50, createdAt: '2023-07-09' },
-]
 const tableColumns = [
   {
     title: '名称',
@@ -36,8 +32,11 @@ const tableColumns = [
 
 const Trash: FC = () => {
   useTitle('小幕问卷 - 回收站')
-  const [data, setData] = useState(sourceData)
+  // const [data, setData] = useState(sourceData)
   const [selectedIds, setSelectedIds] = useState<string[]>([])
+
+  const { loading, data = {}, error } = useLoadQuestionList({ isDelete: true })
+  const { list: questions = [], total = 0 } = data as any
 
   const permanentDeletion = () => {
     confirm({
@@ -65,20 +64,30 @@ const Trash: FC = () => {
           永久删除
         </Button>
       </Space>
-      <Table
-        dataSource={data}
-        columns={tableColumns}
-        rowKey="_id"
-        rowSelection={{
-          type: 'checkbox',
-          onChange: (selectedRowKeys, selectedRows, info) => {
-            setSelectedIds(selectedRowKeys as string[])
-            console.log('selectedRowKeys', selectedRowKeys)
-          },
-        }}
-        pagination={false}
-        style={{ marginTop: '20px' }}
-      />
+      {loading && (
+        <div style={{ textAlign: 'center' }}>
+          <Spin size="large" />
+        </div>
+      )}
+      {!loading &&
+        (questions.length > 0 ? (
+          <Table
+            dataSource={questions}
+            columns={tableColumns}
+            rowKey="_id"
+            rowSelection={{
+              type: 'checkbox',
+              onChange: (selectedRowKeys, selectedRows, info) => {
+                setSelectedIds(selectedRowKeys as string[])
+                console.log('selectedRowKeys', selectedRowKeys)
+              },
+            }}
+            pagination={false}
+            style={{ marginTop: '20px' }}
+          />
+        ) : (
+          <Empty />
+        ))}
     </>
   )
   return (
@@ -91,7 +100,8 @@ const Trash: FC = () => {
           <ListSearch />
         </div>
       </div>
-      <div className={styles.content}>{data.length <= 0 ? <Empty /> : TableElement}</div>
+      <div className={styles.content}>{TableElement}</div>
+      <div className={styles.footer}>分页</div>
     </>
   )
 }

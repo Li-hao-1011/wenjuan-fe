@@ -1,8 +1,11 @@
 import { FC, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { Space, Typography, Form, Input, Button, Checkbox } from 'antd'
+import { Space, message, Form, Input, Button, Checkbox } from 'antd'
+import { useRequest } from 'ahooks'
 import styles from './SignIn.module.scss'
-import { REGISTER_PATHNAME } from '../router/index'
+import { REGISTER_PATHNAME, MANAGE_LIST_PATHNAME } from '../router/index'
+import { loginService } from '../services/user'
+import { setToken } from '../utils/userToken'
 
 const PASS_WORD = 'password'
 const USER_NAME = 'username'
@@ -29,15 +32,33 @@ const SignIn: FC = () => {
     form.setFieldsValue({ ...getUserFormStorage() })
   }, [])
   const [form] = Form.useForm()
+  const nav = useNavigate()
+  const { run: login, loading: loginLoading } = useRequest(
+    async (username: string, password: string) => {
+      const res = await loginService({ username, password })
+      return res
+    },
+    {
+      manual: true,
+      onSuccess: (result) => {
+        const { token } = result
+        setToken(token)
+        message.success('登录成功')
+        nav(MANAGE_LIST_PATHNAME)
+      },
+      onError: () => {},
+    },
+  )
   const onFinish = (values: any) => {
-    console.log('sign-in', values)
-    if (values.remember) {
+    const { username, password, remember } = values || {}
+    if (remember) {
       // remember
       rememberUser(values)
     } else {
       // delete
       deleteUserFormStorage()
     }
+    login(username, password)
   }
   return (
     <div className={styles.container}>
@@ -70,7 +91,7 @@ const SignIn: FC = () => {
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
           <Space>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={loginLoading}>
               登录
             </Button>
             <Link to={REGISTER_PATHNAME}>注册账号</Link>

@@ -1,11 +1,12 @@
 import { FC, useState } from 'react'
 import { useTitle } from '@reactuses/core'
-import { Typography, Empty, Spin } from 'antd'
+import { Typography, Empty, Spin, Pagination } from 'antd'
 import styles from './Common.module.scss'
 import QuestionCard from '../../components/QuestionCard'
 import { PropsType } from '../../components/QuestionCard'
 import ListSearch from '../../components/ListSearch'
 import useLoadQuestionList from '../../hooks/useLoadQuestionList'
+import ListPage from '../../components/ListPage'
 
 const { Title } = Typography
 
@@ -41,7 +42,11 @@ const Star: FC = () => {
             <Empty />
           ))}
       </div>
-      <div className={styles.footer}>分页加载...</div>
+      <div className={styles.footer}>
+        {/* <Pagination defaultCurrent={1} total={total} /> */}
+
+        <ListPage total={total} />
+      </div>
     </>
   )
 }

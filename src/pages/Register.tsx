@@ -1,18 +1,32 @@
 import { FC } from 'react'
-import { useSearchParams, Link } from 'react-router-dom'
-import { Space, Typography, Form, Input, Button } from 'antd'
+import { useNavigate, Link } from 'react-router-dom'
+import { Space, Typography, Form, Input, Button, message } from 'antd'
 import { UserAddOutlined } from '@ant-design/icons'
+import { useRequest } from 'ahooks'
 import styles from './Register.module.scss'
 import { LOGIN_PATHNAME } from '../router/index'
+import { registerService } from '../services/user'
 
 const { Title } = Typography
 
 const Register: FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
-  console.log('searchParams', searchParams.get('keyword'))
-
+  const nav = useNavigate()
+  const { run: register, loading: registerLoading } = useRequest(
+    async (values) => {
+      const { username, password, nickname } = values
+      await registerService({ username, password, nickname })
+    },
+    {
+      manual: true,
+      onSuccess: () => {
+        message.success('注册成功!')
+        nav(LOGIN_PATHNAME)
+      },
+    },
+  )
   const onFinish = (values: any) => {
     console.log('onFinish', values)
+    register(values)
   }
   return (
     <div className={styles.container}>
@@ -68,15 +82,12 @@ const Register: FC = () => {
             ]}>
             <Input.Password />
           </Form.Item>
-          <Form.Item
-            label="用户名"
-            name="nickname"
-            rules={[{ required: true, message: 'Please input your nickname!' }]}>
+          <Form.Item label="昵称" name="nickname" rules={[{ required: false }]}>
             <Input />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
             <Space>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" loading={registerLoading}>
                 注册
               </Button>
               <Link to={LOGIN_PATHNAME}>已有账号，前去登陆</Link>

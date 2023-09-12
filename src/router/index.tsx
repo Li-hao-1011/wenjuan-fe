@@ -50,3 +50,11 @@ export const HOME_PATHNAME = '/'
 export const LOGIN_PATHNAME = '/login'
 export const REGISTER_PATHNAME = '/register'
 export const MANAGE_LIST_PATHNAME = '/manage/list'
+
+export const isLoginOrRegisterPage = (pathname: string) => {
+  return [LOGIN_PATHNAME, REGISTER_PATHNAME].includes(pathname)
+}
+
+export const isNoNeedUserInfo = (pathname: string) => {
+  return [HOME_PATHNAME, REGISTER_PATHNAME, LOGIN_PATHNAME].includes(pathname)
+}

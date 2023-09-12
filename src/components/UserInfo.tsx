@@ -6,16 +6,23 @@ import { Button, message } from 'antd'
 import { LOGIN_PATHNAME } from '../router/index'
 import { getUserInfoService } from '../services/user'
 import { removeToken } from '../utils/userToken'
+import useGetUserInfo from '../hooks/useGetUserInfo'
+import { useDispatch } from 'react-redux'
+import { logoutReducer } from '../store/userReducer'
 
 const UserInfo: FC = () => {
   // TODO:登陆组建
 
   const nav = useNavigate()
-  const { data = {} } = useRequest(getUserInfoService)
-  const { username, nickname } = data
+  const dispatch = useDispatch()
+  // const { data = {} } = useRequest(getUserInfoService)
+  // const { username, nickname } = data
+
+  const { username = '', nickname = '' } = useGetUserInfo()
   const logout = () => {
-    removeToken()
     message.success('退出成功')
+    removeToken()
+    dispatch(logoutReducer())
     nav(LOGIN_PATHNAME)
   }
 

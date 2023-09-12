@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getQuestionService } from '../services/question'
 import { useRequest } from 'ahooks'

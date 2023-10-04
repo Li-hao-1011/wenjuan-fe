@@ -20,7 +20,7 @@ const PropComponent: FC<QuestionRadioPropsType> = (props) => {
     }
     const { options = [] } = newProps as QuestionRadioPropsType
     options.forEach((it: OptionType) => {
-      if (!it.value) it.value = it.text // 补齐 opt.value
+      /*  if (!it.value) */ it.value = it.text // 补齐 opt.value
     })
     onChange(newProps)
   }

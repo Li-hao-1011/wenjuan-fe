@@ -5,7 +5,7 @@ import { loginReducer } from '../store/userReducer'
 import { getUserInfoService } from '../services/user'
 import useGetUserInfo from './useGetUserInfo'
 
-const useLoadUserData = () => {
+export const useLoadUserData = () => {
   const [waitingUserData, setWaitingUserData] = useState(true)
   const { username } = useGetUserInfo()
   const dispatch = useDispatch()

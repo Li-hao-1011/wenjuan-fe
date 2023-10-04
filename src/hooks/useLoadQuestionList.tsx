@@ -13,7 +13,7 @@ type OptionType = {
   isDelete: boolean
 }
 
-const useLoadQuestionList = (options: Partial<OptionType>) => {
+export const useLoadQuestionList = (options: Partial<OptionType>) => {
   const { isStar, isDelete } = options
   const [searchParams] = useSearchParams()
 

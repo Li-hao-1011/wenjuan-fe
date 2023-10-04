@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { isLoginOrRegisterPage, isNoNeedUserInfo, LOGIN_PATHNAME, MANAGE_LIST_PATHNAME } from '../router/index'
 import useGetUserInfo from './useGetUserInfo'
 
-const useNavigatePage = (waitingUserData: boolean) => {
+export const useNavigatePage = (waitingUserData: boolean) => {
   const { username } = useGetUserInfo()
   const { pathname } = useLocation()
   const nav = useNavigate()

@@ -4,6 +4,7 @@ import { useRequest } from 'ahooks'
 import { useDispatch } from 'react-redux'
 import { getQuestionService } from '../services/question'
 import { QuestionInfoProps, resetComponents } from '../store/questionReducer/index'
+import { resetPageInfo } from '../store/pageInfoReducer'
 
 export const useLoadQuestionData = () => {
   const { id = '' } = useParams()
@@ -28,7 +29,13 @@ export const useLoadQuestionData = () => {
   )
 
   useEffect(() => {
-    const { /* title = '', */ componentList = [] } = data as { componentList: QuestionInfoProps[]; title: string }
+    const {
+      title = '',
+      componentList = [],
+      desc = '',
+      js = '',
+      css = '',
+    } = data as { componentList: QuestionInfoProps[]; title: string; desc: string; js: string; css: string }
     let selectedId = ''
     if (componentList.length > 0) {
       selectedId = componentList[0].fe_id
@@ -41,6 +48,8 @@ export const useLoadQuestionData = () => {
         copiedComponent: null,
       }),
     )
+    // 存储PageInfo
+    dispatch(resetPageInfo({ title, desc, js, css }))
   }, [data])
 
   useEffect(() => {

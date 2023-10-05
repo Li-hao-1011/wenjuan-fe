@@ -1,9 +1,10 @@
 import { FC } from 'react'
 import { Button, Result, Spin } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import { useTitle } from 'ahooks'
 import { useLoadQuestionData, useGetPageInfo } from '../../../hooks'
 import { MANAGE_LIST_PATHNAME } from '../../../router'
-import { useTitle } from 'ahooks'
+import styles from './index.module.scss'
 
 const Stat: FC = () => {
   const nav = useNavigate()
@@ -11,37 +12,48 @@ const Stat: FC = () => {
   const { loading } = useLoadQuestionData()
   const { isPublished, title } = useGetPageInfo()
   useTitle(`问卷统计 - ${title}`)
-  // 加载组件信息中
-  if (loading) {
+
+  const LoadingElem = (
+    <div style={{ textAlign: 'center', marginTop: '220px' }}>
+      <Spin />
+      <div>加载中...</div>
+    </div>
+  )
+
+  const genContentElem = () => {
+    if (typeof isPublished === 'boolean' && !isPublished) {
+      return (
+        <div style={{ flex: 1 }}>
+          <Result
+            status="warning"
+            title="该页面尚未发布"
+            subTitle="您访问的页面不存在"
+            extra={
+              <Button type="primary" onClick={() => nav(MANAGE_LIST_PATHNAME)}>
+                返回列表
+              </Button>
+            }></Result>
+        </div>
+      )
+    }
+
     return (
-      <div style={{ textAlign: 'center', marginTop: '220px' }}>
-        <Spin />
-        <div>加载中...</div>
-      </div>
-    )
-  }
-  console.log('信息===>', isPublished)
-  // 未发布
-  if (!isPublished) {
-    return (
-      <div style={{ flex: 1 }}>
-        <Result
-          status="warning"
-          title="该页面尚未发布"
-          subTitle="您访问的页面不存在"
-          extra={
-            <Button type="primary" onClick={() => nav(MANAGE_LIST_PATHNAME)}>
-              返回列表
-            </Button>
-          }></Result>
-      </div>
+      <>
+        <div className={styles.left}>left</div>
+        <div className={styles.main}>main</div>
+        <div className={styles.right}>right</div>
+      </>
     )
   }
 
   return (
-    <>
-      <h1>Stat</h1>
-    </>
+    <div className={styles.container}>
+      <div>header</div>
+      <div className={styles[`content-wrapper`]}>
+        {loading && LoadingElem}
+        {!loading && <div className={styles.content}>{genContentElem()}</div>}
+      </div>
+    </div>
   )
 }
 export default Stat

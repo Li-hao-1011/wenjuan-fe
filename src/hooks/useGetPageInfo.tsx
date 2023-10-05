@@ -8,7 +8,7 @@ export const useGetPageInfo = () => {
     desc = '',
     js = '',
     css = '',
-    isPublished = false,
+    isPublished,
   } = useSelector<StoreType, PageInfoType>((state) => state.pageInfo)
   return { title, desc, js, css, isPublished }
 }

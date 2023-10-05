@@ -5,6 +5,7 @@ import { useTitle } from 'ahooks'
 import { useLoadQuestionData, useGetPageInfo } from '../../../hooks'
 import { MANAGE_LIST_PATHNAME } from '../../../router'
 import styles from './index.module.scss'
+import StatHeader from './StatHeader'
 
 const Stat: FC = () => {
   const nav = useNavigate()
@@ -48,7 +49,7 @@ const Stat: FC = () => {
 
   return (
     <div className={styles.container}>
-      <div>header</div>
+      <StatHeader />
       <div className={styles[`content-wrapper`]}>
         {loading && LoadingElem}
         {!loading && <div className={styles.content}>{genContentElem()}</div>}

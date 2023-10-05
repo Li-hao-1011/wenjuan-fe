@@ -5,12 +5,12 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 3000, // 开发环境启动的端口
+    port: 8000, // 开发环境启动的端口
     host: '0.0.0.0',
     // open: true, // 项目启动时自动打开浏览器
     proxy: {
       '/api': {
-        target: 'http://localhost:3002', // 当遇到 /api 路径时
+        target: 'http://localhost:8001', // 当遇到 /api 路径时
         changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
         // 一般情况下，配置上面两个即可
         // secure: false,      // 如果是 https 接口，需要配置这个参数

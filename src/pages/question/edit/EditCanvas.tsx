@@ -5,8 +5,9 @@ import classNames from 'classnames'
 import styles from './EditCanvas.module.scss'
 import { useGetComponentsInfo } from '../../../hooks'
 import { getComponentConfBtType } from '../../../components/QuestionComponents/index'
-import { QuestionInfoProps, changeSelectedId } from '../../../store/questionReducer/index'
+import { QuestionInfoProps, changeSelectedId, moveComponent } from '../../../store/questionReducer/index'
 import { useBindCanvasKeyPress } from '../../../hooks/index'
+import { SortableContainer, SortableItem } from '../../../components/DragSortable/index'
 
 type PropsType = {
   loading: boolean
@@ -41,28 +42,37 @@ const EditCanvas: FC<PropsType> = (props) => {
         <Spin />
       </div>
     )
-  return (
-    <div className={styles.canvas}>
-      {componentList
-        .filter((it) => !it.isHidden)
-        .map((it) => {
-          const { fe_id, isLocked } = it
 
-          const wrapperDefaultClassName = styles['component-wrapper']
-          const selectedClassName = styles['selected']
-          const lockedClassName = styles['locked']
-          const wrapperClassName = classNames({
-            [wrapperDefaultClassName]: true,
-            [selectedClassName]: fe_id === selectedId,
-            [lockedClassName]: isLocked,
-          })
-          return (
-            <div key={fe_id} onClick={(e) => handleClick(e, it.fe_id)} className={wrapperClassName}>
-              <div className={styles.component}>{generateComponent(it)}</div>
-            </div>
-          )
-        })}
-    </div>
+  const itemsWithId = componentList.map((it) => ({ ...it, id: it.fe_id }))
+  const handleDragEnd = (oldIndex: number, newIndex: number) => {
+    dispatch(moveComponent({ oldIndex, newIndex }))
+  }
+  return (
+    <SortableContainer items={itemsWithId} onDragEnd={handleDragEnd}>
+      <div className={styles.canvas}>
+        {componentList
+          .filter((it) => !it.isHidden)
+          .map((it) => {
+            const { fe_id, isLocked } = it
+
+            const wrapperDefaultClassName = styles['component-wrapper']
+            const selectedClassName = styles['selected']
+            const lockedClassName = styles['locked']
+            const wrapperClassName = classNames({
+              [wrapperDefaultClassName]: true,
+              [selectedClassName]: fe_id === selectedId,
+              [lockedClassName]: isLocked,
+            })
+            return (
+              <SortableItem key={fe_id} id={fe_id}>
+                <div onClick={(e) => handleClick(e, it.fe_id)} className={wrapperClassName}>
+                  <div className={styles.component}>{generateComponent(it)}</div>
+                </div>
+              </SortableItem>
+            )
+          })}
+      </div>
+    </SortableContainer>
   )
 }
 

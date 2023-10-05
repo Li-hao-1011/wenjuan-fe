@@ -9,3 +9,8 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+/* 拖拽排序样式 */
+div[role='button'] {
+  outline: 0;
+}

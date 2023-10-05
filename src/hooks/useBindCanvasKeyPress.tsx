@@ -11,7 +11,10 @@ import {
 // 判断光标是否在输入框内
 const isActiveElementValid = () => {
   const activeElement = document.activeElement
+  // 使用 dnd-kit 之前
   if (activeElement === document.body) return true // 光标没有在 input 上
+  // 使用 dnd-kit 之后, 需要判断光标是否在 div[role="button"] 上
+  if (activeElement?.matches('div[role="button"]')) return true
   return false
 }
 

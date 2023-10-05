@@ -176,6 +176,15 @@ const questionSlice = createSlice({
 
       state.selectedId = componentList[index + 1].fe_id
     },
+
+    // 修改组件标题
+    changeComponentTitle: (state: ComponentsStoreType, action: PayloadAction<{ fe_id: string; title: string }>) => {
+      return produce(state, (_draft) => {
+        const { fe_id, title } = action.payload
+        const curComp = state.componentList.find((it) => it.fe_id === fe_id)
+        if (curComp) curComp.title = title
+      })
+    },
   },
 })
 
@@ -191,6 +200,7 @@ export const {
   pasteCopiedComponent,
   selectPrevComponent,
   selectNextComponent,
+  changeComponentTitle,
 } = questionSlice.actions
 
 export default questionSlice.reducer

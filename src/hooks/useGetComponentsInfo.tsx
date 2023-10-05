@@ -7,7 +7,7 @@ export const useGetComponentsInfo = () => {
     componentList = [],
     selectedId = '',
     copiedComponent = null,
-  } = useSelector<StoreType, ComponentsStoreType>((state) => state.components)
+  } = useSelector<StoreType, ComponentsStoreType>((state) => state.components.present)
   const selectedComponent = componentList.find((it) => it.fe_id === selectedId)
   return { componentList, selectedId, selectedComponent, copiedComponent }
 }

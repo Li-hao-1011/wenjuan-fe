@@ -3,10 +3,10 @@
   background-color: #ffffff;
   overflow: hidden;
 
-  > .selected {
+  .selected {
     border-color: #1890ff !important;
   }
-  > .locked {
+  .locked {
     opacity: 0.5;
     cursor: not-allowed;
   }

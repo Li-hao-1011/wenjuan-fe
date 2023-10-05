@@ -7,13 +7,17 @@ import EditCanvas from './EditCanvas'
 import LeftPanel from './LeftPanel'
 import RightPanel from './RightPanel'
 import EditHeader from './EditHeader'
+import { useTitle } from 'ahooks'
+import { useGetPageInfo } from '../../../hooks'
+
 const Edit: FC = () => {
   const { loading } = useLoadQuestionData()
   const dispatch = useDispatch()
   const cancelSelected = () => {
     dispatch(changeSelectedId(''))
   }
-
+  const { title } = useGetPageInfo()
+  useTitle(`问卷编辑 - ${title}`)
   return (
     <div className={styles.container}>
       <header className={styles.header}>

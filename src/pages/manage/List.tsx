@@ -6,7 +6,6 @@ import { useSearchParams } from 'react-router-dom'
 import styles from './Common.module.scss'
 import QuestionCard from '../../components/QuestionCard'
 import ListSearch from '../../components/ListSearch'
-import useLoadQuestionList from '../../hooks/useLoadQuestionList'
 import { getQuestionListService } from '../../services/question'
 import { LIST_PAGE_SIZE, SEARCH_LIST_PARAM_KEY } from '../../constant/index'
 
@@ -14,9 +13,6 @@ const { Title } = Typography
 
 const List: FC = () => {
   useTitle('小幕问卷 - 我的问卷')
-  // const { loading, data = {} /* error */ } = useRequest(getQuestionListService)
-  // const { data = {}, loading /* error */ } = useLoadQuestionList({})
-  // const { list: questions = [], total = 0 } = data as any
 
   const moreLoadRef = useRef<HTMLDivElement>(null)
   const [searchParams] = useSearchParams()

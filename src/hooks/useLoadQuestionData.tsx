@@ -4,18 +4,13 @@ import { useRequest } from 'ahooks'
 import { useDispatch } from 'react-redux'
 import { getQuestionService } from '../services/question'
 import { QuestionInfoProps, resetComponents } from '../store/questionReducer/index'
-import { resetPageInfo } from '../store/pageInfoReducer'
+import { PageInfoType, resetPageInfo } from '../store/pageInfoReducer'
 
 export const useLoadQuestionData = () => {
   const { id = '' } = useParams()
   const dispatch = useDispatch()
 
-  const {
-    data = {},
-    loading,
-    error,
-    run,
-  } = useRequest(
+  const { data, loading, error, run } = useRequest(
     async (id: string) => {
       if (!id) {
         throw new Error('没有问卷')
@@ -29,13 +24,20 @@ export const useLoadQuestionData = () => {
   )
 
   useEffect(() => {
+    if (!data) {
+      return
+    }
     const {
       title = '',
       componentList = [],
       desc = '',
       js = '',
       css = '',
-    } = data as { componentList: QuestionInfoProps[]; title: string; desc: string; js: string; css: string }
+      isPublished = false,
+    } = data as {
+      componentList: QuestionInfoProps[]
+    } & PageInfoType
+
     let selectedId = ''
     if (componentList.length > 0) {
       selectedId = componentList[0].fe_id
@@ -49,18 +51,13 @@ export const useLoadQuestionData = () => {
       }),
     )
     // 存储PageInfo
-    dispatch(resetPageInfo({ title, desc, js, css }))
+    dispatch(resetPageInfo({ title, desc, js, css, isPublished }))
   }, [data])
 
   useEffect(() => {
     run(id)
   }, [id])
 
-  //   const request = async () => {
-  //     const res = await getQuestionService(id)
-  //     return res
-  //   }
-  //   const { data, error, loading } = useRequest(request)
   return { error, loading }
 }
 

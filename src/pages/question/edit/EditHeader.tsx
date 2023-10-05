@@ -1,15 +1,18 @@
 import { ChangeEvent, FC, useState } from 'react'
-import { Button, Input, Space, Typography } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { Button, Input, Space, Typography, message } from 'antd'
+import { useNavigate, useParams } from 'react-router-dom'
 import { EditOutlined, LeftOutlined } from '@ant-design/icons'
+import { useKeyPress, useRequest, useDebounceEffect } from 'ahooks'
+import { useDispatch } from 'react-redux'
 import styles from './EditHeader.module.scss'
 import EditToolbar from './EditToolbar'
-import { useGetPageInfo } from '../../../hooks'
-import { useDispatch } from 'react-redux'
+import { useGetComponentsInfo, useGetPageInfo } from '../../../hooks'
 import { changePageTitle } from '../../../store/pageInfoReducer'
+import { updateQuestionListService } from '../../../services/question'
 
 const { Title } = Typography
 
+// 标题组件
 const TitleElement: FC = () => {
   const { title } = useGetPageInfo()
   const [editTitle, setEditTitle] = useState(false)
@@ -46,6 +49,79 @@ const TitleElement: FC = () => {
     </Space>
   )
 }
+// 保存组件
+const SaveButton: FC = () => {
+  // 保存 pageInfo、componentList
+  const { componentList } = useGetComponentsInfo()
+  const pageInfo = useGetPageInfo()
+  const { id } = useParams()
+
+  const { loading, run: save } = useRequest(
+    async () => {
+      if (id == undefined) {
+        return
+      }
+      await updateQuestionListService(id, { ...pageInfo, componentList })
+    },
+    { manual: true },
+  )
+
+  // 绑定快捷键
+  useKeyPress(['ctrl.s', 'meta.s'], (event: KeyboardEvent) => {
+    event.preventDefault()
+    if (!loading) {
+      save()
+    }
+  })
+
+  // 自动保存 effect 防抖
+  useDebounceEffect(
+    () => {
+      save()
+    },
+    [pageInfo, componentList],
+    {
+      wait: 1000,
+    },
+  )
+  return (
+    <Button loading={loading} style={{ borderRadius: 0 }} onClick={() => save()}>
+      保存
+    </Button>
+  )
+}
+// 发布组件
+const PublishButton: FC = () => {
+  const { componentList } = useGetComponentsInfo()
+  const pageInfo = useGetPageInfo()
+  const { id } = useParams()
+  const nav = useNavigate()
+
+  const { loading, run: publish } = useRequest(
+    async () => {
+      if (id == undefined) {
+        return
+      }
+      await updateQuestionListService(id, {
+        ...pageInfo,
+        componentList,
+        isPublished: true, // 发布问卷
+      })
+    },
+    {
+      manual: true,
+      onSuccess: () => {
+        message.success('发布成功')
+        nav(`/question/stat/${id}`) // 跳转到统计页面
+      },
+    },
+  )
+  return (
+    <Button disabled={loading} type="primary" style={{ borderRadius: 0 }} onClick={() => publish()}>
+      发布
+    </Button>
+  )
+}
 
 const EditHeader: FC = () => {
   const nav = useNavigate()
@@ -65,10 +141,8 @@ const EditHeader: FC = () => {
         </div>
         <div className={styles.right}>
           <Space>
-            <Button style={{ borderRadius: 0 }}>保存</Button>
-            <Button type="primary" style={{ borderRadius: 0 }}>
-              发布
-            </Button>
+            <SaveButton />
+            <PublishButton />
           </Space>
         </div>
       </div>

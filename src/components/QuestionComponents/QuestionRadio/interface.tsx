@@ -11,6 +11,10 @@ export type QuestionRadioPropsType = {
   onChange?: (props: QuestionRadioPropsType) => void
   disabled?: boolean
 }
+// 统计图表的属性类型
+export type QuestionRadioStatPropsType = {
+  stat: Array<{ name: string; count: number }>
+}
 
 export const QuestionRadioDefaultProps: QuestionRadioPropsType = {
   title: '单选标题',

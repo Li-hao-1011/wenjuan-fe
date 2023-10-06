@@ -7,6 +7,8 @@ import { MANAGE_LIST_PATHNAME } from '../../../router'
 import styles from './index.module.scss'
 import StatHeader from './StatHeader'
 import ComponentList from './ComponentList'
+import PageStat from './PageStat'
+import ChartStat from './ChartStat'
 
 const Stat: FC = () => {
   const nav = useNavigate()
@@ -15,8 +17,8 @@ const Stat: FC = () => {
   const { isPublished, title } = useGetPageInfo()
   useTitle(`问卷统计 - ${title}`)
 
-  const [selectedComponentId, setSelectedComponentId] = useState('')
-  const [selectedComponentType, setSelectedComponentType] = useState('')
+  const [selectedComponentId, setSelectedComponentId] = useState<string>('')
+  const [selectedComponentType, setSelectedComponentType] = useState<string>('')
 
   const LoadingElem = (
     <div style={{ textAlign: 'center', marginTop: '220px' }}>
@@ -51,8 +53,16 @@ const Stat: FC = () => {
             setSelectedComponentType={setSelectedComponentType}
           />
         </div>
-        <div className={styles.main}>main</div>
-        <div className={styles.right}>right</div>
+        <div className={styles.main}>
+          <PageStat
+            selectedComponentId={selectedComponentId}
+            setSelectedComponentId={setSelectedComponentId}
+            setSelectedComponentType={setSelectedComponentType}
+          />
+        </div>
+        <div className={styles.right}>
+          <ChartStat selectedComponentId={selectedComponentId} selectedComponentType={selectedComponentType} />
+        </div>
       </>
     )
   }

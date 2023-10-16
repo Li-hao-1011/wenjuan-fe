@@ -3,7 +3,7 @@ import { Space, Radio, Typography } from 'antd'
 import type { RadioChangeEvent } from 'antd'
 import { QuestionRadioPropsType, QuestionRadioDefaultProps } from './interface'
 
-const { Title, Paragraph } = Typography
+const { Paragraph } = Typography
 
 const QuestionRadio: FC<QuestionRadioPropsType> = (props) => {
   const { title = '', isVertical = false, options = [], value = '' } = { ...QuestionRadioDefaultProps, ...props }
@@ -11,7 +11,7 @@ const QuestionRadio: FC<QuestionRadioPropsType> = (props) => {
   const handleChange = (event: RadioChangeEvent) => {}
 
   return (
-    <div>  
+    <div>
       {/* <Title style={{ fontSize: '18px', marginBottom: 0 }}>{title}</Title> */}
       <Paragraph strong>{title}</Paragraph>
       <Radio.Group value={value} onChange={handleChange}>

@@ -4,7 +4,6 @@ import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { Typography, Empty, Table, Tag, Space, Button, Modal, Spin, message } from 'antd'
 import { useRequest } from 'ahooks'
 import styles from './Common.module.scss'
-import { PropsType } from '../../components/QuestionCard'
 import ListSearch from '../../components/ListSearch'
 import useLoadQuestionList from '../../hooks/useLoadQuestionList'
 import ListPage from '../../components/ListPage'
@@ -38,7 +37,7 @@ const Trash: FC = () => {
   // const [data, setData] = useState(sourceData)
   const [selectedIds, setSelectedIds] = useState<string[]>([])
 
-  const { loading, data = {}, error, refresh } = useLoadQuestionList({ isDelete: true })
+  const { loading, data = {}, refresh } = useLoadQuestionList({ isDelete: true })
   const { list: questions = [], total = 0 } = data as any
 
   const { run: deletedIds, loading: deletedIdsLoading } = useRequest(
@@ -108,7 +107,7 @@ const Trash: FC = () => {
             rowKey="_id"
             rowSelection={{
               type: 'checkbox',
-              onChange: (selectedRowKeys, selectedRows, info) => {
+              onChange: (selectedRowKeys) => {
                 setSelectedIds(selectedRowKeys as string[])
                 console.log('selectedRowKeys', selectedRowKeys)
               },

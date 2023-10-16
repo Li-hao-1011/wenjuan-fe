@@ -1,16 +1,12 @@
 import { FC } from 'react'
 import { Space, Checkbox, Typography } from 'antd'
-import type { CheckboxValueType } from 'antd/es/checkbox/Group'
 import { QuestionCheckboxDefaultProps, QuestionCheckboxPropsType } from './interface'
 
-const { Title, Paragraph } = Typography
+const { Paragraph } = Typography
 
 const QuestionRadio: FC<QuestionCheckboxPropsType> = (props) => {
   const { title = '', isVertical = false, list = [] } = { ...QuestionCheckboxDefaultProps, ...props }
 
-  const handleChange = (checkedValues: CheckboxValueType[]) => {
-    console.log('checked = ', checkedValues)
-  }
   return (
     <div>
       {/* <Title style={{ fontSize: '18px', marginBottom: 0 }}>{title}</Title> */}

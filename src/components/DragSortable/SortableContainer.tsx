@@ -1,16 +1,7 @@
 import { FC } from 'react'
-import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  MouseSensor,
-  useSensor,
-  useSensors,
-  DragEndEvent,
-} from '@dnd-kit/core'
+import { DndContext, closestCenter, MouseSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core'
 
-import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
 type PropsType = {
   children: JSX.Element | JSX.Element[]

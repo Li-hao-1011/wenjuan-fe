@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react'
 import { OptionType, QuestionCheckboxPropsType } from './interface'
-import { Button, Checkbox, Form, Input, Select, Space } from 'antd'
+import { Button, Checkbox, Form, Input, Space } from 'antd'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
 const PropComponent: FC<QuestionCheckboxPropsType> = (props) => {

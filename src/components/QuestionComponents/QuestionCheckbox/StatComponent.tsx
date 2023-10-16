@@ -2,10 +2,6 @@ import { FC } from 'react'
 import { ResponsiveContainer, BarChart, CartesianGrid, Tooltip, Bar, YAxis, XAxis } from 'recharts'
 import { QuestionCheckboxStatPropsType } from './interface'
 
-const format = (num: number, sum: number): string => {
-  return ((num / sum) * 100).toFixed(2)
-}
-
 const StatComponent: FC<QuestionCheckboxStatPropsType> = ({ stat = [] }) => {
   // 和
   return (

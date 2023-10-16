@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import bundleAnalyzer from 'rollup-plugin-bundle-analyzer'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [bundleAnalyzer({}), react()],
   server: {
     port: 8000, // 开发环境启动的端口
     host: '0.0.0.0',

@@ -13,7 +13,6 @@ const PropComponent: FC<QuestionRadioPropsType> = (props) => {
   const handleFormChange = () => {
     if (!onChange) return
     const newProps = form.getFieldsValue()
-    console.log('handleFormChange', newProps)
     // 清楚 text 是 undefined 的选项
     if (newProps.options) {
       newProps.options = newProps.options.filter((it: OptionType) => !(it.text == undefined))

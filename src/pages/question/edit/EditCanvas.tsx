@@ -24,7 +24,6 @@ const generateComponent = (componentInfo: QuestionInfoProps) => {
 const EditCanvas: FC<PropsType> = (props) => {
   const dispatch = useDispatch()
   const { componentList, selectedId } = useGetComponentsInfo()
-  console.log('componentList 999', selectedId, componentList)
 
   // 绑定快捷键
   useBindCanvasKeyPress()

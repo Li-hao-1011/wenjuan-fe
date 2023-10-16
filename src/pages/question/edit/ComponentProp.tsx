@@ -22,7 +22,6 @@ const ComponentProp: FC = () => {
     if (!selectedComponent) return
     const { fe_id } = selectedComponent
     dispatch(updateComponentProps({ fe_id, newProps: { ...newProps } }))
-    console.log('newProps', fe_id, newProps)
   }
   if (!componentConf) {
     return <NoProp text="未识别组件" />

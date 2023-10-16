@@ -109,7 +109,6 @@ const Trash: FC = () => {
               type: 'checkbox',
               onChange: (selectedRowKeys) => {
                 setSelectedIds(selectedRowKeys as string[])
-                console.log('selectedRowKeys', selectedRowKeys)
               },
             }}
             pagination={false}

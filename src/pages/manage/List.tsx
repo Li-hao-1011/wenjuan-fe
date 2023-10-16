@@ -53,7 +53,6 @@ const List: FC = () => {
   // 触发加载
   const { run: tryLoadMore } = useDebounceFn(
     () => {
-      console.log(`tryLoadMore...`)
       const currentElement = moreLoadRef.current
       if (currentElement === null) return
       const bundingRect = currentElement.getBoundingClientRect()

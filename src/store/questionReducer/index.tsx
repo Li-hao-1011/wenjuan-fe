@@ -55,7 +55,6 @@ const questionSlice = createSlice({
     }, */
     /* 
     (draft: ComponentsStoreType, action: PayloadAction<string>) => {
-      console.log(draft)
       // draft.selectedId = action.payload
     }
     */

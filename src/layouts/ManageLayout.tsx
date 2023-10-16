@@ -18,7 +18,6 @@ const ManageLayout: FC = () => {
   // setLoading(true)
   // const data = await createQuestionService()
   // if (data.id) {
-  //   console.log('handleCreate', data)
   //   message.success('创建成功')
   //   nav(`/question/edit/${data.id}`)
   // }
@@ -30,7 +29,6 @@ const ManageLayout: FC = () => {
     onError() {},
     onSuccess: (result) => {
       if (result.id) {
-        console.log('handleCreate', result)
         message.success('创建成功')
         nav(`/question/edit/${result.id}`)
       }

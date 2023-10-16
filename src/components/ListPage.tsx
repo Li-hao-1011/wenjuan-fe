@@ -17,7 +17,6 @@ const ListPage: FC<PropsType> = (props) => {
   const nav = useNavigate()
   // 改变 page、pageSize
   const onChange: PaginationProps['onChange'] = (page, pageSize) => {
-    console.log('Page: ', page, pageSize)
     searchParams.set(SEARCH_LIST_PAGE_PARAM_KEY, `${page}`)
     searchParams.set(SEARCH_LIST_PAGE_SIZE_PARAM_KEY, `${pageSize}`)
     nav({

@@ -25,7 +25,6 @@ const Register: FC = () => {
     },
   )
   const onFinish = (values: any) => {
-    console.log('onFinish', values)
     register(values)
   }
   return (

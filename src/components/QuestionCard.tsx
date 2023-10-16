@@ -78,7 +78,6 @@ const QuestionCard: FC<PropsType> = (props) => {
     {
       manual: true,
       onSuccess: (data) => {
-        console.log('复制成功', data)
         message.success(`复制成功! id为 ${data.id}`)
         // 跳转到问卷编辑页
         nav(`/question/edit/${data.id}`)

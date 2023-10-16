@@ -16,7 +16,6 @@ const ListSearch: FC = () => {
   }, [searchParams])
 
   const onSearch = (value: string) => {
-    console.log('onSearch', value, pathname)
     nav({
       pathname,
       search: `${SEARCH_LIST_PARAM_KEY}=${value}`,

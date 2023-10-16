@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
 import { Typography } from 'antd'
 import { useDispatch } from 'react-redux'
 import { ComponentConfType, componentConfGroup } from '../../../components/QuestionComponents'
@@ -10,11 +10,13 @@ const { Title } = Typography
 const generateComponent = (component: ComponentConfType) => {
   const dispatch = useDispatch()
   const { type, title, Component, defaultProps } = component
-  const addComponentToCanvas = () => {
+
+  const addComponentToCanvas = useCallback(() => {
     dispatch(
       addComponent({ fe_id: generateRandomStr(), type, title, props: defaultProps, isHidden: false, isLocked: false }),
     )
-  }
+  }, [])
+
   return (
     <div key={type} className={styles.wrapper} onClick={() => addComponentToCanvas()}>
       <div className={styles.component}>

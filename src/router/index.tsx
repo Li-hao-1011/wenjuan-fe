@@ -5,12 +5,17 @@ import Register from '../pages/Register'
 import ManageList from '../pages/manage/List'
 import ManageStar from '../pages/manage/Star'
 import ManageTrash from '../pages/manage/Trash'
-import QuestionEdit from '../pages/question/edit/index'
-import QuestionStat from '../pages/question/stat/index'
+// import QuestionEdit from '../pages/question/edit/index'
+// import QuestionStat from '../pages/question/stat/index'
 import NotFound from '../pages/NotFound'
 import MainLayout from '../layouts/MainLayout'
 import ManageLayout from '../layouts/ManageLayout'
 import QuestionLayout from '../layouts/QuestionLayout'
+import { lazy } from 'react'
+
+// 使用路由懒加载拆分chunk
+const QuestionEdit = lazy(() => import(/* chunkName: "edit" */ '../pages/question/edit/index'))
+const QuestionStat = lazy(() => import(/* chunkName: "stat" */ '../pages/question/stat/index'))
 
 const routers: RouteObject[] = [
   {

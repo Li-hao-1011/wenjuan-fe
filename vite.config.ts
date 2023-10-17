@@ -19,4 +19,31 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id: any) {
+          if (id.includes('@dnd-kit')) {
+            return 'dnd-kit-chunk'
+          }
+          /* @ant-design/icons */
+          if (id.includes('@ant-design/icons')) {
+            return 'antd-icon-chunk'
+          }
+          if (id.includes('recharts')) {
+            return 'recharts-chunk'
+          }
+          if (id.includes('antd')) {
+            return 'antd-chunk'
+          }
+          if (id.includes('react-dom')) {
+            return 'react-dom-chunk'
+          }
+          if (id.includes('node_modules')) {
+            return 'vendor'
+          }
+        },
+      },
+    },
+  },
 })

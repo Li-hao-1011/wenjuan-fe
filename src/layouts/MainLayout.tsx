@@ -28,7 +28,7 @@ const MainLayout: FC = () => {
             <Outlet />
           ) : (
             <div style={{ textAlign: 'center', marginTop: '30vh' }}>
-              <Spin  />
+              <Spin />
             </div>
           )}
         </Content>

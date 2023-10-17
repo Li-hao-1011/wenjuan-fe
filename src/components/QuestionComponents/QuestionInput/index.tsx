@@ -6,7 +6,7 @@ export * from './interface'
 
 // 属性的组件
 import PropComponent from './PropComponent'
- 
+
 export default {
   title: '输入框',
   type: 'questionInput',

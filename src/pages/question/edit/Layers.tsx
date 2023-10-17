@@ -54,7 +54,7 @@ const Layers: FC = () => {
     dispatch(toggleComponentLocked({ fe_id }))
   }
 
-  // 拖拽排序 
+  // 拖拽排序
   const itemsWithId = componentList.map((it) => ({ ...it, id: it.fe_id }))
   const handleDragEnd = (oldIndex: number, newIndex: number) => {
     dispatch(moveComponent({ oldIndex, newIndex }))

@@ -23,6 +23,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id: any) {
+          if (id.includes('lodash')) {
+            return 'lodash'
+          }
           if (id.includes('@dnd-kit')) {
             return 'dnd-kit-chunk'
           }

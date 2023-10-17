@@ -38,7 +38,7 @@ const PropComponent: FC<QuestionCheckboxPropsType> = (props) => {
       </Form.Item>
       <Form.Item label="选项" name="list">
         <Form.List name="list">
-          {(fields, { add, remove }, { errors }) => (
+          {(fields, { add, remove }) => (
             <>
               {/* 所有选项 */}
               {fields.map((it, index) => (

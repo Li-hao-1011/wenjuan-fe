@@ -9,7 +9,7 @@
     "lint": "eslint 'src/**/*.+(js|ts|jsx|tsx)'",
     "preview": "vite preview",
     "format": "prettier --write 'src/**/*.+(js|ts|jsx|tsx)'",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
@@ -41,6 +41,9 @@
     "@babel/preset-react": "^7.22.15",
     "@babel/preset-typescript": "^7.23.2",
     "@jest/types": "^29.6.3",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.5.1",
     "@types/jest": "^29.5.5",
     "@types/lodash.clonedeep": "^4.5.7",
     "@types/react": "^18.2.15",
